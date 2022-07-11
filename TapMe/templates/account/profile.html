@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock title %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'styles/profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'cropperjs/dist/cropper.min.css' %}" />
+{% endblock stylesheet %}
+
+     {% block profile %}
+    <li class="nav-item mx-3">
+        <div class="dropdown ">
+            <img class="nav-profile" src="{{loggedin_user_profile_image.url }}" alt="#"
+            id="dropdownMenuButton"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item"  href="{% url 'account:Profile' loggedin_user_id %}">Account</button>
+                <a class="dropdown-item" href="{% url 'account:Logout' %}">Logout</button>
+            </div>
+           
+        </div>
+        <a class="nav-link" href="#">
+            
+        </a>
+    </li>
+    {% endblock profile %}
+    
+
+
+{% block body %}
+
+
+    <main class="container profil-main">
+        <section class="profile">
+            <div class="profile__head">
+                <img src="{{ active_user.profile_image.url }}" alt="#" class="profile-pic"/>
+            </div>
+            <div class="profile__body">
+                <div class="profile__row">
+                    <p>Email</p>
+                    {% if is_other %}
+                        <p class="personal-detail">*************</p>
+                        {% else %}
+                        <p class="personal-detail">{{ active_user.email }}</p>
+                    {% endif %}
+                </div>
+                <div class="profile__row">
+                    <p>Username</p>
+                    <p class="personal-detail">{{ active_user.username }}</p>
+                </div>
+                {% if update_frm %}
+                    <div class="profile__row">
+                        {% for field in update_frm  %}
+                            {% for error in field.errors %}
+                                <p style="color: crimson;" > {{ error }} </p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="profile__footer">
+                {% if is_self %}
+                <button class="btn btn-update" data-toggle="modal" data-target="#updatemodal">Update</button>
+                <button class="btn btn-change">Change password</button>
+                {% endif %}
+            </div>
+        </section>  
+        <section class="others">
+            <div class="others__row">
+                <p>Friend <span>({{ total_friends }})</span></p>
+            </div>
+            {% if is_other %}
+                {% if is_friend %}
+                    {% comment %} if you are friends {% endcomment %}
+                    <div class="others__row">
+                        <a class="custom-btn" style="background: crimson" href="{% url 'account:UnFriend' active_user.pk %}">UnFriend</a>
+                    </div>
+                    {% else %}
+                        
+                        {% if you_sent_to_other  %}
+                            {% comment %} if you sent request to other {% endcomment %}
+                            <div class="others__row">
+                                <a 
+                                class="custom-btn"
+                                style="background: crimson"
+                                href="{% url 'account:SenderCancelFriendRequest' active_user.pk %}">Cancel Request</a>
+                            </div>
+                        {% else %}
+                        
+                        {% if other_sent_to_you %}
+                        
+                            <div class="others__row">
+                                <a 
+                                class="custom-btn"
+                                style="background: crimson; color: var(--white)"
+                                href="{% url 'account:RecieverCancelFriendRequest' active_user.pk friend_request_id %}"
+                                >
+                                Reject
+                                </a>
+                                <a 
+                                class="custom-btn "
+                                style="background: var(--blue500); color: var(--white)"
+                                href="{% url 'account:AcceptFriendRequest' active_user.pk friend_request_id %}"
+                                >
+                                Accept
+                                </a>
+                            </div>
+
+                            {% else %}
+                                <div class="others__row">
+                                    <a 
+                                    class="custom-btn" 
+                                    style="background: var(--blue500)"
+                                    href="{% url 'account:SendFriendRequest' active_user.pk %}">Send FreindRequest</a>
+                                </div>
+                        {% endif %}
+                        
+
+                    {% endif %}
+                {% endif %}
+                
+            {% endif %}
+        </section>
+    </main>
+
+
+    <div class="modal fade" id="updatemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-img__container">
+                    <div class="d-flex">
+                        <button class="btn-cancel">cancel</button>
+                        <button class="btn-confirm">confirm</button>
+                        <input type="text" id="id-field" value="{{active_user.pk}}" hidden />
+                    </div>
+                    
+                    <img src="{{ active_user.profile_image.url }}" alt="#" class="profile-img"/>
+                    <div class="profile-img__edit">
+                        <button class="edit-btn">Edit</button>
+                    </div>
+                </div>
+                <form action="" method="post" class="frm" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="frm__row d-none">
+                        <input type="file" name="profile_image" id="profile-image-file" onchange="readURL(this)">
+                    </div>
+                    <div class="frm__row">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" value={{ active_user.email }}>
+                    </div>
+                    <div class="frm__row">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" value={{ active_user.username }}>
+                    </div>
+                    <div class="frm__row-special">
+                        
+                        <input type="checkbox" name="hide_email" id="hide_email"
+                         {% if  hide_email %}
+                            checked
+                        {% endif %}
+                        >
+                        <label for="hide_email">Hide Email</label>
+                    </div>
+                   
+                   
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script src="{% static  'js/image_uploader.js'%}"></script>
+      <script type="module" src="{% static 'cropperjs/dist/cropper.min.js' %}" ></script>
+
+{% endblock body %}

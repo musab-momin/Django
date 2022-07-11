@@ -1,0 +1,37 @@
+.container{
+    width: 70%;
+    margin: 5em auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    width: 600px;
+    height: 500px;
+    margin: 1em 0;
+    padding: 0 1em;
+    background: #fff;
+    box-shadow:  0 5px 15px rgba(0,0,0,0.1);;
+    display: grid;
+    place-items: center;
+}
+.img{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+}
+.card__body{
+    text-align: center;
+}
+.btn{
+    background: rgb(239, 243, 250);
+    border: none;
+    color: cornflowerblue;
+    padding: .5em 1em;
+    margin: 0 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}

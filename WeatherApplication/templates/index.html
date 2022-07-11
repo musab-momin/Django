@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Doctor</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h2>Weather Doctor</h2>
+    </header>
+
+    <main class="main">
+        <form action="{% url 'weathereport:Index' %}" method="post" class="frm">
+            {% csrf_token %}
+            <input type="text" name="city" id="city" placeholder="e.g: Mumbai">
+            <button type="submit">Submit</button>
+        </form>
+        <div class="ans">
+            {% if city_weather %}
+                <div>
+                    <img src="{{ city_weather.icon }}" alt="#" class="img">
+                </div>
+                <div>
+                    <h3>{{ city_weather.city }}</h2>
+                    <div class="ans__temp">
+                        <p>{{ city_weather.temp_cel }} <sup>&#176;</sup>C</p>
+                        <p>{{ city_weather.temp_fer }} <sup>&#176;</sup>F</p>
+                    </div>
+                    <p>Climate: {{ city_weather.condition }}</p>
+                </div>
+                {% else %}
+                    <div style="margin: auto; text-align: center">
+                        <h2>You didn't search any city yet!</h2>
+                    </div>
+            {% endif %}
+           
+        </div>
+    </main>
+
+</body>
+</html>

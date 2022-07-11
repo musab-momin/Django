@@ -1,0 +1,470 @@
+<html>
+<body onresize="betterForResize()">
+<input type='search' onkeypress='betterFunc()' />
+
+
+<script src="practice.js"></script>
+<script>
+    // let counter = 1
+    // const getData = function (){
+    //     console.log('this gets called ', counter++);
+    // }
+
+    // const deBounce = function (cb, delay){
+    //     let timer;
+    //     return function(){
+    //         let context = this, args = arguments;
+    //         clearTimeout(timer)
+    //         timer = setTimeout(function(){
+    //             cb.apply(this, args)
+    //         }, delay)
+    //     }
+    // }
+
+    // const betterFunc = deBounce(getData, 1000)
+
+
+    // const getForResize = function(){
+    //     console.log('function resize gets called ', counter++);
+    // }
+
+    // const debounceForResize = function (cb, delay){
+    //     let timer;
+    //     return function(){
+    //         let context = this, args = arguments;
+    //         clearTimeout(timer)
+    //         timer = setTimeout(function (){
+    //             cb.apply(this, arguments)
+    //         }, delay)
+    //     }
+    // }
+    
+    // betterForResize = debounceForResize(getForResize, 2000)
+
+
+
+// //fibonacci using generator
+// // function* fibonacci() { // a generator function
+// //   let [prev, curr] = [0, 1];
+// //   while (true) {
+// //     [prev, curr] = [curr, prev + curr];
+// //     yield curr;
+// //   }
+// // }
+
+// // for (const n of fibonacci()) {
+// //   console.log(n);
+// //   // truncate the sequence at 1000
+// //   if (n >= 1000) {
+// //     break;
+// //   }
+// // }
+
+
+
+// // const superHeros = [
+// //     {name: 'Iron Man', powers: 'Money and Mind'},
+// //     {name: 'Captain America', powers: 'Super strength'}
+// // ]
+
+
+// // const print = ()=>{
+// //     setTimeout(()=>{
+// //         superHeros.forEach(ele=>{
+// //             console.log(`${ele.name} : ${ele.powers}`)
+// //         })
+// //     }, 1000)
+// // }
+
+
+// // const addHero = ()=>{
+// //     return new Promise((resolve, reject)=>{
+// //         if(true){
+// //             setTimeout(()=>{
+// //                 superHeros.push({name: 'Thor', powers: 'Greek thunder GOD'})
+// //                 resolve()
+// //             }, 2000)
+// //         }else{
+// //             reject()
+// //         }
+// //     })
+// // }
+
+// // async function caller (){
+// //     await addHero()
+// //     print()
+// // }
+
+// // caller()
+
+    
+// //generators
+// // function* simpleGenerator(){
+// //     let id = 1 
+// //     while (true){
+// //         yield id
+// //         id++
+// //     }
+// // }
+// // const generatorObj = simpleGenerator()
+// // console.log(generatorObj.next())
+// // console.log(generatorObj.next())
+
+
+// // let obj = {
+// //     name : 'Musab',
+// //     lastname : 'Momin'
+// // }
+// // obj = {
+// //     name : 'Lionel',
+// //     lastname : 'Messi'
+// // }
+
+// // console.log( obj)
+
+
+// //find the second largest element in array
+
+// // function findSecondLarge(arr, n){
+// //     let sorted, first, second;
+    
+// //     sorted = arr.sort()
+// //     first = sorted[n-1]
+    
+// //     for (let i = n-2; i >= 0; i--){
+// //         second = sorted[i]
+// //         if (second != first){
+// //             return second
+// //         }
+// //     }
+    
+// // }
+
+
+// // const arr = [35, 12, 84, 58, 64, 75, 57, 42, 34]
+// // const ans = findSecondLarge(arr, arr.length)
+// // console.log(ans)
+
+
+// //second approach find the first largest element and find the largest in remaing array elements
+
+// // function findSecondLarge(arr, n){
+// //     let firstMax= arr[0], secondMax = arr[0] ;
+    
+// //     for (let i = 0; i < n; i++){
+// //         if (arr[i] > firstMax )  firstMax = arr[i]
+// //     }
+    
+// //     for (let i = 0; i < n; i++){
+// //         if(arr[i] > secondMax && arr[i] < firstMax)    secondMax = arr[i]
+// //     }
+    
+// //     return secondMax
+    
+// // }
+
+
+
+
+// // const arr = [35, 12, 84, 58, 64, 75, 57, 42, 34]
+// // const ans = findSecondLarge(arr, arr.length)
+// // console.log(ans)
+
+// //effient solution
+// // function findSecondLarge(arr, n){
+// //     let first = arr[0], second = 0
+    
+// //     for (let i = 0; i < arr.length; i++){
+// //         if (arr[i] > first){
+// //             second = first 
+// //             first = arr[i]
+// //         }
+// //         if(arr[i] > second && arr[i] < first){
+// //             second = arr[i]
+// //         }
+// //     }
+// //     return second
+// // }
+
+
+
+// // const arr = [35, 12, 84, 58, 64, 75, 57, 42, 34]
+// // const ans = findSecondLarge(arr, arr.length)
+// // console.log(ans)
+
+
+// //advatage of this
+// // this will point to current object if you use it inside the object or will point to class if uses
+// // inside class
+
+
+// // const printAnyObject = function (){
+// //     console.log(this.name, ' : ', this.property)
+// // }
+
+// musabObj = {
+//     name : 'Musab Momin',
+//     property : 'Sense of humor'
+// }
+
+// // //here u can give any obj with same properties as musabObj this will automatically
+// // //refer to that and print its value
+// // printAnyObject.call(musabObj)
+
+
+// //for of and for in
+
+// // for (let key of musabObj){
+// //     console.log(key)
+// // }
+
+// // let arr = [12, 45, 67]
+// // arr.foo = 'Hello'
+
+// // for (let i of arr)
+// //     console.log(i)
+
+
+// // for (let i in arr)
+// //     console.log(i)
+
+
+// // const promiseOne = ()=>{
+// //     return new Promise((resolve, reject)=>{
+// //         if(true){
+// //             setTimeout(function(){
+// //                 console.log('this is promise one')
+// //                 resolve()    
+// //             }, 1000)
+            
+// //         }else{
+// //             reject()
+// //         }
+// //     })
+// // }
+
+
+// // const promiseSecond = ()=>{
+// //     return new Promise((resolve, reject)=>{
+// //         if(true){
+// //             setTimeout(function(){
+// //                 console.log('this is promise second')
+// //                 resolve()    
+// //             }, 2000)
+// //         }else{
+// //             reject()
+// //         }
+// //     })
+// // }
+
+// // promiseOne().then(()=>{
+// //     // console.log('This is promise one')
+// // })
+
+// // promiseSecond().then(()=>{
+// //     // console.log('This is promise Second')
+// // })
+
+
+// // Promise.all([promiseOne(), promiseSecond()])
+// // .then(()=>{
+// //     console.log('All promises gets resolved code execution is finished')
+// // }).catch(err=>console.error(err))
+
+
+// //array destructuring
+
+// const arrnames = ['messi', 'ronaldo', 'zalatan', 'ineista', 'xavi', 'maldini', 'salah', 'mane']
+// const clubsnames = ['barcelona', 'realmadrid', 'liverpool', 'mancity']
+
+
+// //first will fetch element at first index, ... means spread operator it remaing element 
+// const [first, second, ...rest] = arrnames
+// console.log(first, second, rest)
+
+
+// //we get duplicate of arrname by bcoz ... spread operator it gives us remaing elements since we
+// //didn't destruction any element we will get all the elements on arrnames
+// const duplicate = [...arrnames]
+// console.log(duplicate)
+
+
+// //we can also merge two arrays by using ... spread operator
+// const combination = [...arrnames, ...clubsnames]
+// console.log(combination)
+
+// Online Javascript Editor for free
+// Write, Edit and Run your Javascript code using JS Online Compiler
+ 
+//write a polyfill for foreach
+// Array.prototype.forEach = null
+
+
+// Array.prototype.forEach = function(cb){
+//     for (let i = 0; i < this.length; i++){
+//         cb(this[i])
+//     }
+// }
+
+// const arr = [12, 85, 36, 47, 15, 58]
+// arr.forEach(ele=>{
+//     console.log( ele * 2)
+// })
+
+
+
+// function printObj(){
+//     console.log(this.name , ' : ', this.lastname)
+// }
+
+// const personOne = {
+//     name : 'Eliot',
+//     lastname : 'Alderson'
+// }
+
+// const cb = printObj.bind(personOne)
+// cb()
+
+// //pollyfill for call() method
+// Function.prototype.mycall = function(...args){
+//     //this will point to that function on which mycall is applied
+//     let obj = this
+//     obj(args)
+// }
+
+
+// function printObj(){
+//     console.log(this.name , ' : ', this.lastname)
+// }
+
+// const personOne = {
+//     name : 'Eliot',
+//     lastname : 'Alderson'
+// }
+
+// printObj.mycall(personOne)
+
+//pollyfill for bind
+
+// Function.prototype.mybind = function(...args){
+//     let obj = this 
+//     let params = args.slice(1)
+//     return function(...args2){
+//         let allArgs = [...params, ...args2]
+//         obj.apply(args[0], allArgs)
+//     }
+// }
+
+
+// function printObj(hometown, state){
+//     console.log(this.name , ' : ', this.lastname, hometown, state)
+// }
+
+// const personOne = {
+//     name : 'Eliot',
+//     lastname : 'Alderson'
+// }
+
+// const printBind = printObj.mybind(personOne, 'Mumbai')
+// printBind('Maharashtra')
+
+//write pollyfill for apply
+
+// Function.prototype.myapply = function(context, remainder){
+//     context.myFunc = this
+//     context.myFunc(remainder)
+// }
+// function printObj(arr){
+//     console.log(this.name, ' : ', this.lastname, ' : ', arr[0], ' : ', arr[1])
+// }
+// const personOne = {
+//     name : 'Eliot',
+//     lastname : 'Alderson'
+// }
+// printObj.myapply(personOne, ['Mumbai', 'Maharastra'])
+
+
+//pollyfill for promise.all() fucntion
+
+// Promise.all = (promises) => {
+//     let resolvePromises = []
+//     let rejectPromises = []
+//     return new Promise((resolve, reject)=>{
+//             promises.forEach(async(singlePromise, index)=>{
+//             try{
+//                 let response = await singlePromise
+//                 resolvePromises.push(response)
+//                 if(index == promises.length-1){
+//                     if (rejectPromises.length > 0){
+//                         reject(rejectPromises)
+//                     }else{
+//                         resolve(resolvePromises)
+//                     }
+//                 }
+//             }catch(err){
+//                 rejectPromises.push(err)
+//                 reject(err)
+//             }
+            
+//         })
+//     })
+// }
+
+// Promise.all = function(promises){
+//     let responses = []
+//     let errResponses = []
+    
+//     return new Promise((resolve, reject)=>{
+//         promises.forEach((singlePromise, index)=>{
+//             singlePromise
+//             .then(res=>{
+//                 responses.push(res)
+//                 if (index === promises.length - 1){
+//                     if(errResponses.length > 0){
+//                         reject(errReponses)
+//                     }else{
+//                         resolve(responses)
+//                     }
+//                 }
+//             })
+//             .catch(err=>{
+//                 errResponses.push(err)
+//                 reject(errResponses)
+//             })
+//         })
+    
+        
+        
+//     })
+// }
+
+
+// let p1 = Promise.resolve('Promise one resolved')
+// let p2 = new Promise((resolve, reject)=>{
+//     setTimeout(function(){
+//         if(false)
+//             resolve('Second promise gets resolved after 2 second')
+//         else
+//             reject('sorry second promise is not fullfiled')
+        
+//     }, 2000)
+// })
+
+// Promise.all([p1, p2]).then(res=>console.log(res)).catch(err => console.log(err))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

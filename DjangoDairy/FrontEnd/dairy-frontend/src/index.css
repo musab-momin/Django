@@ -1,0 +1,92 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header{
+  width: 100%;
+  height: 100px;
+  background: rgb(18, 189, 232);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container{
+  width: 70%;
+  margin: 0 auto;
+}
+.mr-4{
+  margin-top: 4em;
+}
+.pr-2{
+  padding: 1em 0;
+}
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
+
+.logo{
+  color: #fff;
+}
+.wrapper{
+  margin: 5em auto;
+}
+.content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .5em;
+  margin: 3em 0;
+  padding: 2em .5em;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.frm{
+  width: 80%;
+  margin: 0 auto;
+  padding: 2em 1em;
+  min-height: 200px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.frm input{
+  width: 80%;
+  height: 40px;
+  margin: 1em auto;
+  padding: .5em .5em;
+
+}
+.frm textarea{
+  padding: .5em .5em;
+}
+.frm button{
+  width: 100px;
+  height: 40px;
+  margin: 1em 0;
+  padding: .5em .5em;
+  background: purple;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+.mssg{
+  width: 50%;
+  margin: 1em auto;
+  background: rgb(114, 161, 101);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  border-radius: 5px;
+}
+.create-at{
+  text-transform: capitalize;
+  color: #121212;
+}

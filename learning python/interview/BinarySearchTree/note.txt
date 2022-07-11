@@ -1,0 +1,43 @@
+Binary search tree has some specification on which we call them as a binary search tree
+The specifications are 
+1: Each node will have two child nodes at most.
+2: Each node will have two child nodes and the node which is on left should be less the parent node and
+the node on right hand should be greater than parent node.
+Example:
+                       10
+                     /    \
+                     0    12  
+                    / \   / \
+                   -1  5 11 20 
+                            / \
+                           17 99
+
+as you notice each node has eighter two nodes at most.Also all nodes which are in left hand side are less than parent node 
+and all nodes which are in right hand are greater than parent node. 
+
+Common question>>>>>>>
+For binary search tree the common question in interview is add the given node in the given binary search tree.
+>Let's just take the exmple to understand this. consider we have the above tree and given binary search tree
+and we have to add -21 in the tree. 
+>First we go to root node and check whereter the given input is less than left node or greter than right node.
+if the given input is less than left node we go to left hand side of tree or if our given input in greater than 
+right node than we go to right hand side of our tree. In our case -21 is less than left node which is zero so 
+we go to the left hand side.
+>Now we do the same compare our input with left and right nodes. again our inpu -21 in less than left node which 
+is -1. so we go to the -1 node. 
+>since -1 node has to parent node and -21 is less than -1 we place our -21 node at left side of -1 node.
+
+output:
+                       10
+                     /    \
+                     0    12  
+                    / \   / \
+                   -1  5 11 20 
+                   /        / \
+                  -21      17 99
+
+
+Binary Tree vs Binary Search Tree?
+>Binary tree is also a valid term in Computer science but the difference between two is binary tree has two
+childerens at most but there is no condition such a left node will be less than parent node and right node will be 
+greater than parent node. In Binary tree if each node has two nodes at most it is called binary tree.

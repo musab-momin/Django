@@ -1,0 +1,289 @@
+command to create a superuser:
+>python manage.py createsuperuser
+
+what is the django commandtoview a database schema of an existing database?
+>python manage.py inspectdb
+
+how to combine multiple queryset?
+1:using Union operator:
+if both querysets belong to the same model, such as qeury_set_1 & query_set_3 above, then you can use unin operator '|' to easily combine those querysets.
+we can use union operator to combine two or more queries.
+
+query_set = query_set_1 | query_set_3
+
+2:Using Itertools:
+If both querysets belong to the different model, such as query_set_1 and query_set_2 above, then you can use itertools combine those querysets.
+we can use it to combine more than 2 queries.
+
+from itertools imoprt chain 
+combines_list = list(chain(query_set_1, query_set_2))
+
+Mostly asked questions
+
+Explain django architecture?
+>django follows a software desingn pattern called as MVT(model view template)
+architecture.
+>it is based on the model view comtroller architecture(mVC). but is sligtly
+different from the MVC patttern as it maintain its own conventions, so the controller is handled by the framework itself.
+
+
+Difference between Project and apps ?
+>A project is the entire django application and app is a modeule inside the project deals with one specific use case.
+
+>an APP is basically a web application that is created to  perfoem a specidfic task.
+> A project, on the other hand , is a collection of these apps.
+>Therefore, a single project can sonsist of 'n' number of apps and a single app
+can be in multlitple projects.
+
+What is wsgi.py file?
+>This is an entry point for application which is used by the web servers to serve the project.
+
+why django is called loslycoupled framework?
+>
+
+Explain migrations in django?
+>Migration in django is to make changes to our models like deleeting a model, adding a field, etc. into your database chema.
+>A migration in django is a python file that contains changes we make to our models so that they can be convertted into database chema inour DBMS.
+>SO, instead of manully making change to our db schema by wirtin queryies in our dmbs shell, we can just make changes to your models.
+>Then, we can use Django to ge generate migraions from those model changes and run those migrations to make changes to our databse schema.
+
+
+What is django ORM?
+>ORM stands for Object-relational Mapper.
+>This ORM enables us to interact with databases in a more pythonic may like we can avoid writing raw queries.
+>It is possible to retrieve, save, delete and perform other operations over the database without ever wrting nay SQL query.
+>It helps us with working with data in a more object-orented way.
+
+How to setup the db in django?
+>by default django usees the SQLite db and settings of this we can find inside settings.py file. but if wnat ot to change it we have to provide db configuration.
+DATABASES = {
+'default':{
+'ENGINE': 'django.db.backends.postgresql_psycopgs2',
+'NAME' : 'helloworld',
+'USER' : 'root',
+'Password' : '<password>,
+'HOST' : 'localhost',
+'PORT' : ';,
+}
+]
+
+what is difference between select__related and prefetch_related?
+>
+What is difference between flask, piramid and django?
+>
+
+Commonly asked
+Explain django admin and it's task?
+>Django admin panel is a kind of graphical user interface that is used for administrative tasks.
+>django comes with a fully customizable in-build admin interface.
+>you get the quick setup of the admin paenl to manage your data and to access it.
+>to use a database table wit the admin interface, we need to register the modle in the admin.py file.
+>the aplication django admin is imported from the djaangocontriv package.
+
+the django admin interface provides a numer of advance feature
+>authorization access
+>managin multiple models
+>content management system
+
+what is django.shorcuts.render?
+>when a view ffunction returns a webpage as Httpresponse instreaad of a simpole string, we use render().
+>render unction is a sortcut function that lets the developer easily pass the data dictionary with the template.
+>this function sthen combnies the template with data dictonary via templationg enigne.
+
+Explain Q objects in django ORM?
+>q objectes are used to write complex ueries, as in filter() functions just 'AND' the conditions while if you want ot 'OR' the conditions you can use Q objects.
+
+eg: model.objects.get(Q(question__startswith='when'),Q(answer__startswith='on) | 
+Q(answer__startswith='At'))
+
+Q objects can be combined with the elp of the | and & operators to get a new Q object.
+
+What is use of include function in url file?
+>As in django there can be many apps, each appp may have some URL that it responds to.
+>Rather than registering all URLs for all apps in a single urls.py file, 
+each app maintains its own urls.py file, and in the project's urls.py file we use each individual urls.py file of each app by using the include function.
+
+what is the use of this { % include %}?
+>It is use to include other template within a template.
+>template name can either be a variable or hard-coded string
+
+
+what is django restframework?
+>Django rest framework is powerful module for building we ApIs.
+>the django rest framework is a freame that helps you quickly create Restful APIs.
+>It's very easy to build model-backend Apis that have authentiction policies and are browsable.
+>Restful apis are perfect for web applications since they use low bandwidth and are desinged such tha they work elill with commucations over the internet.
+>DRF is especially useful if we ave existing django web application and we wist to quckly generat an ApI for it.
+
+What are middleware in  django?
+>Middleware is somehting that executes between the request and response.
+>It is commonly use for security porpose. 
+>In simple words, you can say it acts as bridge betwee the request and response.
+>Django provides various build-in middleware and also allows us to write our own middleware.
+soe usage of Middlewares in djangois:
+session management, use authentication, CSRF protection, content Gzipping
+
+what are django singnals?
+>The signals are utilities that allow us to associate events with actions.
+>django consistts of a signal dispatcher that helps allow decoupled applications to get notified when actions occur elsewhere in the framework.
+>django provides a set of build-in signals that basically allow senders to nitfy a set of recievers when some action is executed.
+>they especially useful when many pieces of code may be interested inthe same events.
+
+TWO IMPORTANT PARAMETERS IN SIGNALS :
+Receiver: it specifies the callback fucntion which connectd to the signal.
+Sender: It specifies a particular sender from where a signal is recieved.
+
+what is context in django?
+>
+what are django exceptions?
+>
+
+Django Advanced question
+
+what is difference between onetoone and foriegn key>
+>
+
+explain Django.Fields class and its types?
+>charField, datField, datetimeField, choiceFileld, booleanField, textField
+IntegerField
+
+explain sessions and it's implementation?
+>To manage session between user and application we use session basically it is key value pair value. 
+>In django we can manage session by cookies, by normal db session or by file session.
+>In cookie session we store session id as key and data as value and store it on user's browser.
+>In normal session we store session id as key and create a cookie of it and give store it on user's browser
+but we don't set data in cookie instead of that we store data in db. and whenever user makes a request
+it will make my cookie id and we authenticate in db by that id.
+
+what is jinja template?
+>
+what is serialization in django?
+>
+what are generic views?
+>
+what is mixin in django?
+>
+explain caching strategies in django?
+>
+
+
+What is cookie in django?
+>cookie is set of key value pair which set on clients browser by server.
+>In django we use set_cookie() method from Http.Response.cookie to create cookie.
+set_cookie(key, value='', max_age=None, expires=None,path='/',domain=None,
+sercure=False,httponly=False,samesite=None)
+
+e.g: set_cookie('sonam_gupta', 'bewafa', max_age=60*60*24*10(this equals to 10 days), expires=datetiem.utcnow()+timedelta(day=2)(this will get expire in 2 days,  path='/', domain='domain.com', secure=True(this means runs on only HTTPS))
+
+
+
+wsgi and asgi ?
+>wsgi is stands for web server gateway interface. It is a midleware between web server and web application assume you deployed your application on cloud and for webserver you chose nginx 
+but web server can't directly talk to you django application we need something in between to make this conversation happen and that's exactly wsgi does you can specify number of workers in wsgi
+but wsgi is synchronus which means it can't handle one request at time in sync form. 
+>asgi stands for async server gatewat interface. This is use as sync and async server.
+>To run python application we just execute python manage.py runserver. well that is okay for local environment you can't use your application like this is production bcoz it is not reliable and scalable.
+so we have GUICORN this is also a wsgi application server which is pretty good for production. wsgi is protocol or standard between server and application. 
+
+
+what is are management commands can you create your own commands?
+>management commands are runserver, startapp, createsuperuser and shell. 
+>Yes we can create our custom commands also to do so we have to create a directory named management inside any of our app inside that directory create one more directly called commands
+and inside commands folder create your commnad file for example mycommand.py inside this file create a class named it Command and inherit this class with Basecommand class in you class create one method called 
+handle it takes two arguments *args and **options inside this method whatever you write will consider as cumtome command.
+
+NOTE: all the names of class and methods should be same as mentioned other vise it will won't work.
+
+
+
+MEDIA_ROOT and MEDIA_URL ?
+>media root is the actual directory where user put or upload its media files like photos and other media stuff.
+>media url is prefix for accessing files which are in media root.
+
+Cache in django?
+>A cache is an information techonology for the temporary storage of web documents, succh as web pages, images and otehr types of web multimedia to reduce server lag.
+>caching is one of those methods which a website implments to become faster. It is cost efficient and saves CPU procession time.
+>django comes with a robust cacahe system that lets you save dynamic pages so they don't have to be calculated for each reqeust.
+>You can cache the out put of specific views, you caan cache only the pieces that are difficult to produce, or you can cache your entire site.
+>There are three options of caching: 1: Database Caching  2:File System Caching  3:Local Memory Caching
+
+How to implement caching?
+>Ther persite cache- Once the cache is setup, the simples way to use caching is to cache your entire site.
+
+add this in middleware:
+MIDDLEWARE = [
+'django.middleware.cache.UpdateCacheMiddleware',
+'django.middleware.common.CommonMiddleware',
+'django.middleware.cache.FetchFromCacheMIddleware',
+]
+
+#add this is settings.py
+CACHES = {
+    'default' : {
+        'BACKEND' : 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION' : 'enroll_cache',
+    }
+}
+
+NOTE: run the command python manage.py createcachetable
+
+
+>the per-view cache - A more gernral way to use the caching framework is by caching the output of individual views.
+>template fragment caching - This gives you more control what to cache.
+
+
+Django Compressor?
+>now days static files are getting complex day by day it is hard to load to static files while serving the webpages. to over come this django purpose a solution DJANGO COMPRESSOR 
+by using this we can compress our static files like we can minify them or something like which helps us to compressor our static files so that they can load faster.
+
+
+Django Admin Customisation?
+>to customise talbes in admin panel we have to overide the admin.ModelAdmin class
+>In admin.py file create class and inherit admin.ModelAdmin class 
+
+fields -> this is tuple define all the fields you want to show in table
+exclude -> this is a tuple write all the fields of model you want to exclude while filling the form
+list_display -> this is a tuple write all the fields you want to show on record
+page
+search -> this is tuple write all the field on which you want to search
+filter -> this is tuple write all the field on which you want to apply filter
+format_html -> this is parsing html from admin file
+radio_fiel -> this is for choice field if you want to use radio buttons istead
+of select and option.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

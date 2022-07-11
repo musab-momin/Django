@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock title %}
+{% block stylesheet %}
+    <link rel='stylesheet' href="{% static 'styles/register.css' %}" />
+{% endblock stylesheet %}
+{% block body %}
+    
+
+    {% for message in messages %}
+        <div class='mssg active'>
+            <p> {{message}} </p>
+        </div>
+    {% endfor %}
+    <main class="container main">
+        <form action="" method="post" class="frm">
+            {% csrf_token %}
+            <h2 class="frm__heading">Register</h2>
+            <div class="frm__row">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email">
+            </div>
+            <div class="frm__row">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="frm__row">
+                <label for="password1">Password</label>
+                <input type="password" name="password" id="password1">
+            </div>
+            {% comment %} <div class="frm__row">
+                <label for="password2">Confirm Password</label>
+                <input type="password" name="password2" id="password2">
+            </div> {% endcomment %}
+            <div class="frm__row">
+                {% for field in reg_frm  %}
+                    {% for error in field.errors %}
+                        <p class="frm__err"> {{ error }} </p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn">Submit</button> 
+        </form>
+    </main>
+
+
+{% endblock body %}

@@ -1,0 +1,9 @@
+TIME COMPLEXITY ?
+>Most of the algorithms take more time to run for larger inputs.
+>Time complexcity depemends on input size 'n'.
+>Basic operation executes maximum number of times.we calculate the the time complexity by basic operation. we determine hom many times does basic operation
+executes and is our time complexity. 
+
+
+Analysis of selection sort
+ 

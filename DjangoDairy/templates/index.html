@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+    <main class='container mr-4'>
+        <p> <a href="{% url 'NormalDairy:AddNote' %}">Add new note...</a> </p>
+
+        <section class="wrapper">
+            {% for note in notes reversed  %}
+                <div class="content">
+                    <div class="content_heading">
+                        <p><a href="" class='create-at'>{{note.created_at}}</a> </p>
+                    </div>
+                    <div class="content__body">
+                        <p>
+                            {{ note.content }}
+                        </p>
+                    </div>
+            </div>
+          
+            
+            {% endfor %}
+          
+       </div>
+        </section>
+        
+    </main>
+
+{% endblock body %}

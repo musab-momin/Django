@@ -1,0 +1,24 @@
+decorator and iterator?
+>Both are used for iterating on any iterrable object key difference is we can not accesss
+same element twice in generator.
+
+>Generator
+def sqr(n):
+ for i in range(1, n+1):
+  yield i*i
+
+ans = sqr(3)
+print(next(ans))
+print(next(ans))
+
+
+>Iterable
+itr_lst = iter(['apple', 'cake', 'pie'])
+print(next(iter_lst))
+print(next(iter_lst))
+print(next(iter_lst))
+
+
+explain __init__ in python?
+> when we want to convert the folder into into python package. we declare __init__.py in that particualr folder.
+> we use __init__ as function in class to act as a constructor.

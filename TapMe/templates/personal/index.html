@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+
+{% block profile %}
+    {% if is_loggedin %}
+        
+        <li class="nav-item mx-3 ">
+            <div class="dropdown ">
+                <img class="nav-profile" src="{{ active_user.profile_image.url }}" alt="#"
+                id="dropdownMenuButton"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item"  href="{% url 'account:Profile' active_user.id  %}">Account</button>
+                    <a class="dropdown-item" href="{% url 'account:Logout' %}">Logout</button>
+                </div>
+               
+            </div>
+            <a class="nav-link" href="#">
+                
+            </a>
+        </li>
+    {% endif %}
+{% endblock profile %}
+
+
+{% block body %}
+
+    <h2>Welcome to Tapme</h2>
+
+{% endblock body %}

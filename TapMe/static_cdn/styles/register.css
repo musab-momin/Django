@@ -1,0 +1,63 @@
+.frm__heading{
+    margin: 1em 0;
+    text-align: center;
+}
+
+.frm{
+    width: 600px;
+    background: #fff;
+    box-shadow:  0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+}
+.frm__row{
+    width: 90%;
+    margin: 1em auto;
+    display: flex;
+    flex-direction: column;
+}
+.frm__row > input{
+    height: 50px;
+    padding: .5em .5em;
+}
+.btn{
+    margin: 1em auto;
+    width: 50%;
+    height: 50px;
+    color: #fff;
+    border: none;
+    background: var(--blue500);
+    transition: all .3s all;
+}
+.btn:hover{
+    background: #fff;
+    color: var(--text-color);
+    border: 2px solid var(--blue500);
+}
+.frm__err{
+    color: var(--primary-color);
+}
+
+.mssg{
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform:translateX(-50%);
+    width: 500px;
+    height: 60px;
+    background: var(--green500alpha30);
+    color: var(--green600);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    display: none;
+}
+.mssg p{
+    font-weight: bold;
+    margin-top: 20px;
+}
+.mssg.active{
+    display: flex;
+}

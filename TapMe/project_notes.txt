@@ -1,0 +1,196 @@
+About STATIC_CDN AND MEDIA_CDN
+
+we create static_cdn and media_cdn these are folder who actually holds the
+state files and media files and these folder will server those file we craeted 
+this folder for only local environment bcoz in real time we will host our media
+and static file in clould and we have to fetch those files from there.
+
+
+About extending USER_MODEL
+we use AbstractBaseUser class as parent or base class for our own custome user
+class this is also a way to extends USER MODEL from django. Inside the class
+we override all the fields which we are going to use. In this perticular project
+we uses email as username to do this we have to tell django that now username
+field is email field but we also want username to be unique so we have to 
+state username in requried field
+
+USERNAME_FIELD = 'email'
+REQUIRED_FIELDS = ['username']
+
+when we extends the user model in this way we have to create our own user
+account manager and call it in class like this.
+
+objects         = CustomAccountManager()
+
+to set permission to user we have to overide has_perm method yes we don't have 
+to this things if dont make our own user model but since we are doning we have
+to do all this things manully. we are setting permission as admin.
+
+def has_perm(self, perm, obj=None):           
+	set permission for new user
+        return self.is_admin
+
+to set module permission to our user we have to override has_module_perms method
+
+def has_module_perms(self, app_label):        
+        return True
+
+
+
+
+Since we are extending AbstractBaseUser we have also extends BaseUserManager
+class so that we can make custom changes. well this class is used when we 
+save our user model. Now we have to do override some methods according to our need.
+
+create class and inherit BaseUserManager. and override two methods 
+create_user and create_superuser 
+
+
+def create_user(self, email, username, password = None):
+        if not email:
+            raise ValueError('User must need a email')
+        
+        if not username:
+            raise ValueError('User must need a username') 
+
+        user = self.model(email=self.normalize_email(email), username = username, password=password)
+        user.save(using=self._db)
+        return user
+
+    
+
+explanation: 
+>on first line we are raising the exception if user try to register 
+without email. 
+>doing the same thing for username
+>third we are creating a local variable called user and we are calling the 
+model method of BaseUserManager class the class wich we just inherited.
+we are setting the email, username and password for our user this method returns
+us a object which have save method
+>Now we call that .save() method on our user variable.
+>last we return the user to django.
+
+def create_superuser(self, email, username, password):
+        if not email:
+            raise ValueError('User must need a email')
+        
+        if not username:
+            raise ValueError('User must need a username') 
+        
+        user = self.model(email=self.normalize_email(email), username = username, password=password)
+        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+explanation: 
+>this is exactly same as normal user method just we change the value of some
+variables is_admin, is_staff and etc.
+
+
+NOTE: we just overide the user creation process so we have to tell django that 
+now we are creating user it's not system anymore we do this by setting variables in settings.py file
+
+
+AUTH_USER_MODEL = 'account.Account'
+
+
+
+-*-*-*-*-*-*-*-* User Registeration -*-*-*-*-*-*-*-*-*
+>To register user we created the html form like always we do 
+>To register user we used model forms of django created a file forms.py
+
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+
+>first import is for forms api and second django gives us a default user register form so imported
+that Form.
+
+>I din't use this approch bcox UsercreatinForm has to fields which is password1 and password2 just for password confirmation
+so the problem is it is not allowing user to use common password. I don't know how to overide that function inside UserCreationForm
+class. So I drop the idea using this class and used the normal modelForm approach.
+
+>We use the normal ModelForm to validate the user input 
+>Here I use Account.object.create() method to save user information I didn't use form.save() method bcoz I was having trouble
+with that it was not calling the Manager which I created previously.
+
+
+
+-*-*-*-*-*-*-*-* Profile View -*-*-*-*-*-*-*-*-*
+
+class ProfileView(LoginRequiredMixin, View)
+
+>Here I used LoginRequiredMixin to make sure user is already logedin before viewing profiles.
+>In the GET request I fetch the user by it's pk and the pk is coming from url and set all the properties of user to 
+context. 
+NOTE: The better way to do this is DetailView class but I didn't use that bcoz I also give the feature of updating the profile
+and it is not possible to handle post request in DetailView. 
+>Here is used some state variable to simulate our cases If the user is viewing any profile there should be 3 cases
+1:The user is on his own profile in this case we would show update button and change profie button 
+for this I used "is_self" variable and set it to true or false according to the condition.
+2:The user is on someones profile obiously in that case we can't show update profile button and change profile button.
+for this I used "is_others" vaiable adn set it to true or false according to the condition.
+3:It is also possible that user is on someones profile and he send him the friend request or his already his friend
+for this I used "is_friend" vaiable adn set it to true or false according to the condition.
+
+>In POST request we simpli update the user profile simpli using UpdateAccountForm we created this class inside forms.py
+>In UpdateAccountForm I overide the save method of ModelForm we have to do this so that while saving the profile form.save()
+method will call our AccountManager and use our create_user method.
+>Before saving the object we delete the previouse image of the user bcoz we are using default name for profile images. 
+>On front end I added a functionality to crop the image to this is used external js library called "CROPPER.JS". added this in
+to static files of project.
+>On backend we created an api for it since we are calling it async way. image is actually got croped in backedn using openCv2
+from front end we just send the dimension which user seleted cropX, cropY, cropWidht, cropHeight and the actual selected file
+in base62 encoded string format. 
+1: we take that image and stores it in temp folder inside media directly
+2: after saving that image we use openCv2 and crop the image with dimension which we sent from the front end. After cropping
+the image we override that temp profile image file with cropped file and later that we update users image
+3: At the end we delete cropped image from temp folder.
+
+
+-*-*-*-*-*-*-*-*-*-*-*-* FRIEND SYSTEM -*-*-*-*-*-*-*-*-*-*-*
+>To handle friend request system I created a new app called friends.
+>To handle the user friend list I created a modal named FriendList each user will have a one FirendList.
+
+>>>>>>>>>>> MODAL EXPLANATION
+>There is two field in FirendList modal 
+1. user: This field has oneToOne relation with AUTH_USER modal bcoz each user will have one friendlist 
+         modal in which we store all his friend as a list.
+2. friends_lst: This field has ManyTOMany realtion with AUTH_USER_MODEL bcoz one user can have many firends
+
+>Instance methods.
+1.add_friend: This method takes a AUTH_USER_MODEL as argument and first it will check the given argument exists in friendlist
+               or not. if it is not present in friend list we will then add into friend list.
+
+2.remove_friend:  This method takes a AUTH_USER_MODEL as argument and first it will check the given argument exists in friendlist
+                    or not. if it is present in friend list we will then remove from friend list.
+
+3.unfriend: This method takes a AUTH_USER_MODEL as argument we named it as removee(i.e: The user whom with the current loggedin
+            user is terminating the friendship) and remover is this mehtod is the user who is terminating the friendship
+
+4.is_friends: This method takes a AUTH_USER_MODEL as argument and check the given argument user exists in current user 
+              friend list.
+
+>FriendRequest modal whenever the user makes the friend request we create a db record for it. for this I FriendRequest 
+modal. It has two fields sender and receiver both has ForiegnKey relation with AUTH_USER_MODEL bcoz one user can make 
+many friend requests and one user can get many friend request.
+
+>Instance methods:
+1:accept_request: If the reciever accept the friend request we will update the FriendList of both the user by calling 
+                  FriendList modal
+
+2:rejected_by_reciever: If a user who get the request wants to reject the request then call this method    
+
+3:rejected_by_sender: If a user who sends the reqeust wants to withdraw the request then call this mehtod
+
+
+
+
+
+Mariyam sent request to Musab and Musab accepted it
+Musab send request to eliot eliot acceped it
+
+Musab has two friends Eliot, Mariyam
+Mariyam has one friend Musab
+Eliot has one friend Musab

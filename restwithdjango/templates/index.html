@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do</title>
+    <link rel='stylesheet' href='{% static 'index.css' %}' />
+</head>
+<body>
+    <div class="todo__wrapper">
+        <div class="todo__content">
+          <h1>TODO</h1>
+          <form class="newItem frm">
+            <div class="newItem__input">
+              <input type="text" name="add" placeholder="Add item..." id="task">
+              <i id="plus" class="fas fa-plus"></i>
+            </div>
+          </form>
+          <ul class="todo__list">
+            {% comment %} <li class="todo__item">
+              <input type="checkbox" id="todo-1" onchange="handleCheck('todo-1')">
+              <label for="todo-1">
+                <span class="check__box">
+                  <i class="far fa-check check__pointer"></i>
+                </span>
+                <span class="item__title">Booking hotel</span>
+              </label>
+              <i class="fas fa-trash-alt item__trash-can" style='color: green'>Update</i>
+            </li>
+            {% endcomment %}
+          </ul>
+        </div>
+      </div>
+
+      <script src='{% static 'index.js' %}'></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+    <main class='container mr-4 flex-col'>
+      
+        {% if messages %}
+            {% for mssg in messages %}
+                <div class='container pr-2 mssg'>
+                    <p> Add to dairy </p>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+      <form action="{% url 'NormalDairy:AddNote' %}" method='post' class="frm">
+        {% csrf_token %}
+        <textarea name="content" id="" cols="30" rows="10"></textarea>
+        <button type='submit' >Submit</button>
+      </form> 
+
+    </main>
+
+{% endblock body %}
