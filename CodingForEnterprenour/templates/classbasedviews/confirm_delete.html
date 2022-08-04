@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        .messages{
+            width: 60%;
+            display: flex;
+            justify-content: center:
+            align-items: center;
+
+        }
+        .frm{
+            width: 60%;
+            margin: 2em auto;
+        }
+        p{
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <form method="post">{% csrf_token %}
+        <p>Are you sure you want to delete the book "{{ object.title }}"?</p>
+        {{ form.as_p }}
+        <input type="submit" value="Confirm">
+        <a href="{% url 'classbasedviews:ListView' %}">Cancel</a>
+    </form>
+</body>
+</html>

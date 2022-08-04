@@ -1,5 +1,10 @@
+from logging import exception
+from pyexpat import model
+from django.views.generic.list import ListView
 from django.shortcuts import render,redirect
 from django.views import View
+
+import account
 from .models import Account
 from django.contrib import auth
 from .forms import RegistrationForm, UpdateAccountForm
@@ -47,7 +52,6 @@ class RegisterView(View):
         return redirect('/account/register/')
 
 
-
 class LoginView(View):
     context = {
         'title' : 'Login'
@@ -75,11 +79,9 @@ class LoginView(View):
 
         
 
-
 def logout(request):
     auth.logout(request)
     return redirect('/account/login')
-
 
 
 class ProfileView(LoginRequiredMixin, View):
@@ -115,7 +117,6 @@ class ProfileView(LoginRequiredMixin, View):
                 frnd_lst.save()
 
             active_user_frnd_lst = frnd_lst.friend_lst.all()
-            print('*--*-*-*-*-*-*-*', active_user_frnd_lst)
             self.__context['total_friends'] = len(active_user_frnd_lst)
             if request.user == account:
                 is_other = False
@@ -230,9 +231,6 @@ class SenderCancelFriendRequest(LoginRequiredMixin, View):
         return redirect(f'/account/profile/{pk_of_other}/')
 
 
-
-
-
 class RecieverCancelFriendRequest(LoginRequiredMixin, View):
     def get(self, request,sender_pk, request_id):
         user = request.user
@@ -247,7 +245,6 @@ class RecieverCancelFriendRequest(LoginRequiredMixin, View):
             recieved_friend_request.rejected_by_reciever()
         
         return redirect(f'/account/profile/{sender_pk}/')
-
 
 
 class AcceptFriendRequest(LoginRequiredMixin, View):
@@ -285,6 +282,22 @@ class UnFriendView(LoginRequiredMixin, View):
             print('Something went wrong....')
         
         return redirect(f'/account/profile/{removee_id}')
+
+
+class FriendListView(LoginRequiredMixin, View):
+    def get(self, request, user_id):
+        context = {}
+        try:
+            active_user = FriendList.objects.get(user__pk = user_id)
+            frnd_lst = active_user.friend_lst.all()
+            context['frnd_lst'] = frnd_lst
+        except exception as ex:
+            print(f'''
+                Got the exception while fetch friend list
+                \n{ex}
+            ''') 
+
+        return redirect(f'/account/profile/{user_id}/')
 
 
 @api_view(['POST'])

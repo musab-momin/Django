@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock title %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'styles/friend_list.css' %}" />
+{% endblock stylesheet %}
+{% block profile %}
+<li class="nav-item mx-3">
+    <div class="dropdown ">
+        <img class="nav-profile" src="{{loggedin_user_profile_image.url }}" alt="#"
+        id="dropdownMenuButton"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item"  href="{% url 'account:Profile' loggedin_user_id %}">Account</button>
+            <a class="dropdown-item" href="{% url 'account:Logout' %}">Logout</button>
+        </div>
+       
+    </div>
+    <a class="nav-link" href="#">
+        
+    </a>
+</li>
+{% endblock profile %}
+
+{% block body %}
+    <main class='container frd-lst mt-2'>
+
+        {% for friend in object_list %}
+            <a class='profile-card' href="{% url 'account:Profile' friend.id %}">
+                <img src="{{friend.profile_image.url }}" alt="#" class='profile-img'/>
+                <div class='profile-body'>
+                    <p class='frd-name'>{{ friend.username }}</p>
+                    <p>send a Message</p>
+                </div>
+                <div class='flex'>
+                    <p class='fried-badge'>
+                        Friends
+                        <img src="{% static 'assets/site-icons/friend_icon.png' %}" alt="#" class='icon ml-2'/>
+                    </p>
+                </div>
+            </a>
+        {% endfor %}
+    </main>
+
+
+{% endblock body %}
+

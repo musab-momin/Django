@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        .messages{
+            width: 60%;
+            display: flex;
+            justify-content: center:
+            align-items: center;
+
+        }
+        .tbl{
+            width: 70%;
+            margin: 2em auto;
+            border-collapse: collapse;
+        }
+        .tbl-row{
+            height: 40px;
+            padding: 2em 0;
+            border-bottom: 1px solid #888;
+        }
+
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <table class="tbl">
+        <tr  class="tbl-row">
+            <th>Book Name</th>
+            <th>Author</th>
+        </tr>
+        {% for book in book_lst %}
+            <tr class="tbl-row">
+                <td>  
+                    <a href="{% url 'classbasedviews:DetailView' book.slug %}"> {{ book.title }} </a>
+                </td>
+                <td> {{ book.author.name }} </td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

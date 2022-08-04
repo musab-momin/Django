@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 
@@ -13,6 +13,7 @@ urlpatterns = [
     path('sender_cancel_request/<int:pk_of_other>/', views.SenderCancelFriendRequest.as_view(), name='SenderCancelFriendRequest'),
     path('reciever_cancel_request/<int:sender_pk>/<int:request_id>/', views.RecieverCancelFriendRequest.as_view(), name='RecieverCancelFriendRequest'),
     path('accept_friend_request/<int:sender_pk>/<int:request_id>/', views.AcceptFriendRequest.as_view(), name='AcceptFriendRequest'),
+    path('friends/<int:user_id>/', views.FriendListView.as_view(), name='FriendListView'),
     path('unfriend/<int:removee_id>.', views.UnFriendView.as_view(), name='UnFriend'),
     path('api/crop_and_save/', views.crop_and_save, name='CropAndSave'),
 ]

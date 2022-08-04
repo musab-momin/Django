@@ -6,7 +6,7 @@ from django.utils import timezone
 # Create your models here.
 class FriendList(models.Model):
     user            = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    friend_lst      = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, null=True, related_query_name='friends')
+    friend_lst      = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_query_name='friends')
 
 
     def __str__(self):

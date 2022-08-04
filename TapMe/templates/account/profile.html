@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{% static 'cropperjs/dist/cropper.min.css' %}" />
 {% endblock stylesheet %}
 
-     {% block profile %}
+    {% block profile %}
     <li class="nav-item mx-3">
         <div class="dropdown ">
             <img class="nav-profile" src="{{loggedin_user_profile_image.url }}" alt="#"
@@ -65,13 +65,21 @@
         </section>  
         <section class="others">
             <div class="others__row">
-                <p>Friend <span>({{ total_friends }})</span></p>
+                {% if is_other %}
+                    {% if is_friend %}
+                        <a href='{% url 'Friends:FriendList' active_user.id %}'>Friends <span>({{ total_friends }})</span></a>
+                    {% else %}
+                        <p> Friends <span>({{ total_friends }})</span> </p>
+                    {% endif %}
+                {% else %}
+                    <a href='{% url 'Friends:FriendList' active_user.id %}'>Friends <span>({{ total_friends }})</span></a>
+                {% endif %}
             </div>
             {% if is_other %}
                 {% if is_friend %}
                     {% comment %} if you are friends {% endcomment %}
                     <div class="others__row">
-                        <a class="custom-btn" style="background: crimson" href="{% url 'account:UnFriend' active_user.pk %}">UnFriend</a>
+                        <a class="custom-btn btn" style="background: crimson" href="{% url 'account:UnFriend' active_user.pk %}">UnFriend</a>
                     </div>
                     {% else %}
                         

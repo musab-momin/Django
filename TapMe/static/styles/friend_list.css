@@ -1,0 +1,42 @@
+.frd-lst{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.profile-card{
+    width: 40%;
+    height: 150px;
+    margin: 1em 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.profile-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.frd-name{
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: var(--fs-700);
+    padding: 0;
+    margin: 0;
+}
+.fried-badge{
+    display: flex;
+    align-items: center;
+    border: 1px solid #6666;
+    padding: .5em 1em;
+    border-radius: 4px;
+    color: var(--text-color);
+}
+.icon{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
