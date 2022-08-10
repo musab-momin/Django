@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'personal.apps.PersonalConfig',
     'account.apps.AccountConfig',
     'friends.apps.FriendsConfig',
+    'public_chat.apps.PublicChatConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,7 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +87,19 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'TapMe.wsgi.application'
+#manually added for Asgi server
+ASGI_APPLICATION = 'TapMe.asgi.application'
+
+#This is for Redis
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    }
+}
+
+#  'CONFIG': {
+#             'hosts': ['redis://127.0.0.1', '6379'],
+#         }
 
 
 # Database

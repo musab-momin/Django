@@ -54,7 +54,8 @@ class RegisterView(View):
 
 class LoginView(View):
     context = {
-        'title' : 'Login'
+        'title' : 'Login',
+        'is_loggedin' : False
     }
     def get(self, request):
         return render(request, 'account/login.html', self.context)
@@ -68,6 +69,7 @@ class LoginView(View):
             user = auth.authenticate(email=email, password=password)
             if user is not None:
                 auth.login(request, user)
+                self.context['is_loggedin'] = True
                 return redirect('/')
             else:
                 messages.info(request, 'Bad Credentials')

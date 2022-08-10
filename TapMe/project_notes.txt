@@ -1,3 +1,8 @@
+Admin Login Creds:
+email: admin@gmail.com
+password: Hello123
+
+
 About STATIC_CDN AND MEDIA_CDN
 
 we create static_cdn and media_cdn these are folder who actually holds the
@@ -194,3 +199,6 @@ Musab send request to eliot eliot acceped it
 Musab has two friends Eliot, Mariyam
 Mariyam has one friend Musab
 Eliot has one friend Musab
+
+
+PublicRoomChatMessageManager.objects.filter(room=room).order_by('-timestamp')

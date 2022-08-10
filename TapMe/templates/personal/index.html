@@ -3,7 +3,9 @@
 {% block title %}
     {{ title }}
 {% endblock title %}
-
+{% block stylesheet %} 
+    <link rel="stylesheet" href="{% static 'styles/custom_index.css' %}" />
+{% endblock stylesheet %}
 
 {% block profile %}
     {% if is_loggedin %}
@@ -27,7 +29,33 @@
 
 
 {% block body %}
+{% comment %} style="border:1px solid crimson" {% endcomment %}
+        {% if is_loggedin %}
+            <div class="container mt-4">
+                <div class='d-flex justify-content-between align-items-center chat-header'>
+                    <h2> Public Chat Room </h2>
+                    <p class='d-flex justify-content-between align-items-center' style="width: 8%"> 
+                        <img src="{% static 'assets/site-icons/active_users.png' %}" alt="#" /> 
+                        <span style="color: crimson; font-size: 1.3rem;">(2)</span>
+                    </p>
+                </div>
+                <div class="container chat-box">
+                    {% comment %} <p class="single-mssg"> 
+                        <img src="{% static 'assets/site-icons/active_users.png' %}" alt='#' /> 
+                        Hello I just join the chat 
+                    </p> {% endcomment %}
+                </div>
+                <form class='mssg-frm'>
+                    <input type="text" name="message" placeholder='type...'/>
+                    <button> <img src="{% static 'assets/site-icons/sent-btn.png' %}" alt="#" /> </button>
+                </form>
+            </div>
+            {% else %}
+            <h2>Login to start chat</h2>
+            
+        {% endif %}
+        
 
-    <h2>Welcome to Tapme</h2>
 
+        <script  src="{% static 'js/public_chat.js' %}"></script>
 {% endblock body %}
